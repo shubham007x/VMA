@@ -22,12 +22,15 @@ const Login = () => {
 
     try {
       // Example of an API call for logging in
-      await axios.post("http://localhost:8000/login", {
+      const response=await axios.post("http://localhost:8000/login", {
         email,
         password,
         rememberMe,
       });
+      const token = response.data.token; // Assuming the token is returned in the response body
 
+      // Store the token in localStorage (or sessionStorage, or in-memory depending on use case)
+      localStorage.setItem('token', token);
       login(); // Set user as logged in
       setSuccessMessage("Login successful!");
       setEmail("");
