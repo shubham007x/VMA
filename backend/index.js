@@ -21,17 +21,28 @@ app.get("/", async (req, res) => {
 // User signup route
 app.post("/signup", async (req, res) => {
   const { email, password } = req.body;
-  
-  // Hash the password before saving the user
-  bcrypt.hash(password, 5, async (err, hash) => {
-    if (err) {
-      return res.status(500).send("Signup failed");
-    } else {
-      // Save the new user to the database
-      await UserModel.create({ email, password: hash });
-      res.status(201).send("Signup successful");
+
+  try {
+    // Check if a user with the given email already exists
+    const existingUser = await UserModel.findOne({ email });
+
+    if (existingUser) {
+      return res.status(400).send("User already exists. Please sign in.");
     }
-  });
+
+    // Hash the password before saving the user
+    bcrypt.hash(password, 5, async (err, hash) => {
+      if (err) {
+        return res.status(500).send("Signup failed");
+      } else {
+        // Save the new user to the database
+        await UserModel.create({ email, password: hash });
+        res.status(201).send("Signup successful");
+      }
+    });
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 // User login route
