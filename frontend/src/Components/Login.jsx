@@ -22,7 +22,7 @@ const Login = () => {
 
     try {
       // Example of an API call for logging in
-      const response=await axios.post("http://localhost:8000/login", {
+      const response=await axios.post(`${process.env.REACT_APP_API_URL}/login`, {
         email,
         password,
         rememberMe,

@@ -17,7 +17,7 @@ const VideoUpload = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/api/upload", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/upload`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
