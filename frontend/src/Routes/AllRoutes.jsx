@@ -4,6 +4,7 @@ import Login from "../Components/Login";
 import Signup from "../Components/Signup";
 import Homepage from "../Components/Homepage";
 import PrivateRoute from "./PrivateRoute";
+import Videos from "../Components/Videos";
 
 const AllRoutes = () => {
   return (
@@ -18,6 +19,7 @@ const AllRoutes = () => {
       />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/videos" element={<Videos/>}/>
     </Routes>
   );
 };

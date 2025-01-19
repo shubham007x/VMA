@@ -31,7 +31,7 @@ const Login = () => {
 
       // Store the token in localStorage (or sessionStorage, or in-memory depending on use case)
       localStorage.setItem('token', token);
-      login(); // Set user as logged in
+      login(token); // Set user as logged in
       setSuccessMessage("Login successful!");
       setEmail("");
       setPassword("");

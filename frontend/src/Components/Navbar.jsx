@@ -73,7 +73,22 @@ const Navbar = () => {
                   }
                   aria-current="page"
                 >
-                  Home
+                  Upload Video
+                </NavLink>
+              </li>
+            )}
+            {/* Add the new Videos link */}
+            {state && (
+              <li>
+                <NavLink
+                  to="/videos"
+                  className={({ isActive }) =>
+                    `block py-2 px-3 ${
+                      isActive ? "text-white bg-blue-700" : "text-gray-900"
+                    } rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500`
+                  }
+                >
+                  Videos
                 </NavLink>
               </li>
             )}

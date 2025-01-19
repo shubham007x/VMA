@@ -100,6 +100,22 @@ app.post("/api/upload", authenticate, async (req, res) => {
   }
 });
 
+app.get('/user/videos',authenticate, async (req, res) => {
+  try {
+    const userId = req.userId; // Get user ID from the token
+    const videos = await VideoModel.find({ uploadedBy: userId });
+
+    if (videos.length === 0) {
+      return res.status(404).json({ message: "No videos found" });
+    }
+
+    res.json(videos);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 // Start the server and connect to the database
 app.listen(8000, async () => {
   try {
