@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const { UserModel } = require("./models/User.module.js");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
+const PORT = process.env.PORT || 8000;
 
 const { VideoModel } = require("./models/Video.module.js");
 const { authenticate } = require("./middlewares/Authentication.js");
@@ -117,7 +118,7 @@ app.get('/user/videos',authenticate, async (req, res) => {
 });
 
 // Start the server and connect to the database
-app.listen(8000, async () => {
+app.listen(PORT, async () => {
   try {
     await connection; // Ensure the DB connection is successful
     console.log("Connected to DB");
