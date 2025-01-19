@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "./Context/Auth"; // Assuming AuthContext is set up for token management
 import VideoModal from "./VideoModal"; // Import the new VideoModal component
-import VideoPreview from "../";
+import VideoPreview from "../video-preview.jpg";
 const Videos = () => {
   const { token } = useContext(AuthContext); // Access the token from the context
   const [videos, setVideos] = useState([]);
