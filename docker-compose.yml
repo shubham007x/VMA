@@ -1,37 +1,53 @@
 version: '3.8'
 
 services:
-  mongodb:
+  # MongoDB Service
+  mongo:
     image: mongo
-    container_name: mongodb-container
-    restart: always
+    container_name: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
     ports:
-      - "27017:27017"
+      - "27017:27017"  # Expose MongoDB on port 27017
     volumes:
-      - mongo-data:/data/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: pass123
+      - mongodb-data:/data/db  # Persistent storage for MongoDB
+    networks:
+      - default_network  # Explicitly specify the same network
 
+  # Backend Service
   backend:
-    build: ./backend
-    container_name: backend-app
-    restart: always
-    ports:
-      - "5000:5000"
-    depends_on:
-      - mongodb
+    build: ./backend  # Path to your backend directory
+    container_name: backend
     environment:
-      MONGO_URI: mongodb://admin:pass123@mongodb-container:27017/vma_db
-
-  frontend:
-    build: ./frontend
-    container_name: frontend-app
-    restart: always
+      - MONGO_URI=mongodb://admin:password@mongo:27017/vma?authSource=admin  # MongoDB connection string
+      - SECRET_KEY=Secret
+      - PORT=5000
     ports:
-      - "3000:3000"
+      - "5000:5000"  # Expose backend on port 5000
     depends_on:
-      - backend
+      - mongo  # Ensure MongoDB is up before the backend starts
+    networks:
+      - default_network  # Explicitly specify the same network
 
+  # Frontend Service
+  frontend:
+    build: ./frontend  # Path to your frontend directory
+    container_name: frontend
+    environment:
+      - REACT_APP_API_URL= http://backend-app:5000 # Backend API URL
+    ports:
+      - "3000:3000"  # Expose frontend on port 3000
+    depends_on:
+      - backend  # Ensure backend is up before the frontend starts
+    networks:
+      - default_network  # Explicitly specify the same network
+
+# Define the default network explicitly
+networks:
+  default_network:
+    driver: bridge  # Use bridge network driver
+
+# Volumes
 volumes:
-  mongo-data:
+  mongodb-data:  # Create a named volume for MongoDB data

@@ -24,6 +24,7 @@ const Signup = () => {
 
     try {
       // API request to the backend endpoint
+      console.log(process.env.REACT_APP_API_URL);
       await axios.post(`${process.env.REACT_APP_API_URL}/signup`, { email, password });
       setSuccessMessage("Signup successful!");
       setEmail("");

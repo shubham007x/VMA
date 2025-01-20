@@ -1,10 +1,11 @@
 const express = require("express");
 const { connection } = require("./config/db");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
+
 const { UserModel } = require("./models/User.module.js");
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT;
 
 const { VideoModel } = require("./models/Video.module.js");
 const { authenticate } = require("./middlewares/Authentication.js");
@@ -52,7 +53,7 @@ app.post("/login", async (req, res) => {
 
   // Find the user by email
   const user = await UserModel.findOne({ email });
-  
+
   if (!user) {
     return res.status(400).send({ msg: "User not found" });
   }
@@ -61,7 +62,13 @@ app.post("/login", async (req, res) => {
   bcrypt.compare(password, user.password, function (err, result) {
     if (result) {
       // If password matches, generate a JWT token with the userId
-      var token = jwt.sign({ userId: user._id }, process.env.Secret_KEY);
+      const secretKey = process.env.SECRET_KEY; // Ensure this is being set correctly
+      if (!secretKey) {
+        throw new Error("SECRET_KEY is not set");
+      }
+
+      // Then use this key for signing the JWT
+      var token = jwt.sign({ userId: user._id }, secretKey);
       res.status(200).send({ msg: "Login successful", token });
     } else {
       res.status(400).send({ msg: "Login failed" });
@@ -94,14 +101,18 @@ app.post("/api/upload", authenticate, async (req, res) => {
     await newVideo.save();
 
     // Send success response
-    res.status(201).json({ message: "Video added successfully", video: newVideo });
+    res
+      .status(201)
+      .json({ message: "Video added successfully", video: newVideo });
   } catch (error) {
     // Send error response if something goes wrong
-    res.status(500).json({ error: "Failed to save video", details: error.message });
+    res
+      .status(500)
+      .json({ error: "Failed to save video", details: error.message });
   }
 });
 
-app.get('/user/videos',authenticate, async (req, res) => {
+app.get("/user/videos", authenticate, async (req, res) => {
   try {
     const userId = req.userId; // Get user ID from the token
     const videos = await VideoModel.find({ uploadedBy: userId });
@@ -118,11 +129,11 @@ app.get('/user/videos',authenticate, async (req, res) => {
 });
 
 // Start the server and connect to the database
-app.listen(PORT, async () => {
+app.listen(PORT, "0.0.0.0", async () => {
   try {
     await connection; // Ensure the DB connection is successful
     console.log("Connected to DB");
-    console.log("Listening on port 8000");
+    console.log(`Listening on port ${PORT}`);
   } catch (error) {
     console.log(error); // Log any errors related to DB connection
   }

@@ -15,7 +15,7 @@ const authenticate = (req, res, next) => {
   }
 
   // Verify the token using the secret key
-  jwt.verify(token, process.env.Secret_KEY, function (err, decoded) {
+  jwt.verify(token, process.env.SECRET_KEY, function (err, decoded) {
     // If token is invalid or expired, send an error response
     if (err) {
       return res.status(401).json({ msg: "Invalid or expired token" });
