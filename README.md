@@ -68,23 +68,35 @@ Backend (Express API): http://localhost:5000
 MongoDB: mongodb://localhost:27017/videoDB (for internal use or admin access)  
 
 
-How to Use the Application
-1. User Registration & Login
-Register a new user via the /api/register endpoint.
+How to Use the Application  
+
+1. User Registration & Login  
+Register a new user via the /api/register endpoint.  
 Login using the /api/login endpoint to obtain a JWT token for further interactions.
-2. Upload Videos
-Use the /api/upload endpoint to upload videos.
+
+3. Upload Videos
+Use the /api/upload endpoint to upload videos.  
 Metadata will be automatically stored in MongoDB, including video title, description, tags, and file size.
-3. Search Videos
+
+5. Search Videos  
 Pagination is available to manage large video collections efficiently.
-Troubleshooting
-If you run into any issues, make sure to check the following:
 
-Running Containers: Use docker ps to verify that the containers for the frontend, backend, and MongoDB are running.
-MongoDB Connection: Ensure the backend is correctly connected to MongoDB via mongodb://mongo:27017/videoDB.
-Notes for Deployment
-This setup is for local development. For production deployments, you may need to configure MongoDB to use MongoDB Atlas or another cloud provider and update the connection string accordingly.
+Troubleshooting  
+
+If you run into any issues, make sure to check the following:  
 
 
-Final Notes
-Users don’t need to clone or manually configure the project. They can simply run the provided docker run -dp commands to get the entire app up and running in a few steps.
+Running Containers: Use docker ps to verify that the containers for the frontend, backend, and MongoDB are running.  
+
+MongoDB Connection: Ensure the backend is correctly connected to MongoDB via mongodb://mongo:27017/videoDB.  
+
+Notes for Deployment  
+
+This setup is for local development. For production deployments, you may need to configure MongoDB to use MongoDB Atlas or another cloud provider and update the connection string accordingly.  
+
+
+
+Final Notes  
+
+Users don’t need to clone or manually configure the project. They can simply run the provided docker run -dp commands to get the entire app up and running in a few steps.  
+
