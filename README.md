@@ -38,21 +38,24 @@ docker pull shubham007x/mongo
 
 docker run -dp 0.0.0.0:27017:27017 shubham007x/mongo
 
+```
+
 This will pull the MongoDB image from Docker Hub and start it in a container. It will be available on port 27017.
 
 Step 2: Pull and Run Backend Container
-
+```bash
 docker pull shubham007x/vma-backend
 
 docker run -dp 0.0.0.0:5000:5000 --link mongo:27017 shubham007x/vma-backend
-
+```
 This will pull the Backend image and start it on port 5000. It will link to the MongoDB container that you started earlier.
 
 Step 3: Pull and Run Frontend Container
-
+```bash
 docker pull shubham007x/vma-frontend
 
 docker run -dp 0.0.0.0:3000:3000 shubham007x/vma-frontend
+```
 This will pull the Frontend (React app) image and start it on port 3000.
 
 2. Access the Application
