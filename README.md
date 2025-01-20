@@ -61,9 +61,12 @@ This will pull the Frontend (React app) image and start it on port 3000.
 2. Access the Application
 Once all containers are running, you can access the application at:
 
-Frontend (React app): http://localhost:3000
+Frontend (React app): http://localhost:3000  /n
+
 Backend (Express API): http://localhost:5000
+
 MongoDB: mongodb://localhost:27017/videoDB (for internal use or admin access)
+
 How to Use the Application
 1. User Registration & Login
 Register a new user via the /api/register endpoint.
