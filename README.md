@@ -1,6 +1,7 @@
 # VMA - Video Management Application
 ![image](https://github.com/user-attachments/assets/75acfa58-1b92-4786-a86e-c8e948f52668)
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/007409b7-2eec-434f-9e7d-151aa03a955b)
+
 
 
 This is a **Video Management Application** built with the **MERN stack** (MongoDB, Express, React, Node.js) and deployed using **Docker**. The app allows users to upload, view, and manage their own video collections. Each user has access to their own videos, and all services are run inside Docker containers.
